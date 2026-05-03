@@ -1286,7 +1286,12 @@ footer {
   /* Navbar — desktop elemanları gizle */
   .nav-search { display: none; }
   .nav-link { display: none; }
-
+.btn-ghost, .btn-primary {
+    padding: 0 10px;
+    font-size: 11px;
+    height: 32px;
+    letter-spacing: 0;
+  }
 
   /* Arama toggle butonu göster */
   .nav-search-toggle { display: flex; }

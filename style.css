@@ -1286,8 +1286,7 @@ footer {
   /* Navbar — desktop elemanları gizle */
   .nav-search { display: none; }
   .nav-link { display: none; }
-  .btn-ghost { display: none; }
-  .btn-primary { display: none; }
+
 
   /* Arama toggle butonu göster */
   .nav-search-toggle { display: flex; }

@@ -1272,3 +1272,9 @@ footer {
   .btn-primary:hover { transform: none; }
   .detail-nav-btn:hover { transform: none; }
 }
+
+.news-section,
+.page-header,
+.coming-section {
+  padding: 20px 0 !important;
+}

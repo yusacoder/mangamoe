@@ -896,12 +896,6 @@ footer {
   text-align: center;
 }
 
-/* index.html footer — küçük */
-body.page-index footer {
-  padding: 16px 0;
-  margin-top: 16px;
-}
-
 .footer-logo {
   font-family: var(--font-display);
   font-size: 20px;

@@ -447,7 +447,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 /* ── COMING SOON SECTION ── */
 .coming-section {
-  padding: 80px 0;
+  padding: 48px 0;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -888,26 +888,25 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 
 /* ── FOOTER ── */
-/* haberler.html footer — normal boyut */
 footer {
   border-top: 1px solid var(--border);
-  padding: 40px 0;
-  margin-top: 40px;
+  padding: 20px 0;
+  margin-top: 16px;
   text-align: center;
 }
 
 .footer-logo {
   font-family: var(--font-display);
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 900;
   letter-spacing: 4px;
   text-transform: uppercase;
-  margin-bottom: 12px;
+  margin-bottom: 6px;
   color: var(--white);
 }
 .footer-logo span { color: var(--purple); }
 .footer-text {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--white-muted);
   letter-spacing: 0.5px;
 }
@@ -1271,10 +1270,4 @@ footer {
   .news-card:hover { transform: none; box-shadow: none; border-color: rgba(168,85,247,0.3); }
   .btn-primary:hover { transform: none; }
   .detail-nav-btn:hover { transform: none; }
-}
-
-.news-section,
-.page-header,
-.coming-section {
-  padding: 20px 0 !important;
 }

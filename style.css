@@ -447,10 +447,15 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 /* ── COMING SOON SECTION ── */
 .coming-section {
-  padding: 48px 0;
+  min-height: calc(100vh - 64px);
+  margin-top: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   position: relative;
   overflow: hidden;
+  padding: 48px 0;
 }
 .coming-section::before {
   content: '';

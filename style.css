@@ -1362,6 +1362,14 @@ footer {
   flex-direction: column;
 }
 
+.admin-description {
+  margin-top: 12px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+}
+
 .admin-name {
   font-family: var(--font-display);
   font-size: 24px;
@@ -1413,5 +1421,100 @@ footer {
   }
   .admin-name {
     font-size: 20px;
+  }
+}
+
+/* ── Admin Profile Details ── */
+.admin-profile-hero {
+  width: 100%;
+  height: 40vh;
+  min-height: 250px;
+  max-height: 400px;
+  overflow: hidden;
+}
+
+.admin-profile-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.admin-profile-header {
+  display: flex;
+  align-items: flex-end;
+  gap: 24px;
+  margin-top: -60px;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 10;
+}
+
+.admin-profile-avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 4px solid var(--black-bg);
+  background: var(--black-card);
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+
+.admin-profile-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.admin-profile-meta {
+  padding-bottom: 12px;
+}
+
+.admin-profile-name {
+  font-family: var(--font-display);
+  font-size: 36px;
+  color: var(--white);
+  margin: 0;
+  text-shadow: 0 0 12px var(--purple-glow);
+}
+
+.admin-profile-label {
+  font-size: 16px;
+  color: var(--purple-light);
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.admin-profile-content {
+  max-width: 800px;
+  margin-bottom: 80px;
+}
+
+.admin-detail-text {
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  line-height: 1.8;
+}
+
+.admin-detail-text h2 {
+  color: var(--white);
+  font-family: var(--font-display);
+  margin-top: 32px;
+  margin-bottom: 16px;
+  font-size: 24px;
+}
+
+@media (max-width: 768px) {
+  .admin-profile-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: -75px;
+  }
+  .admin-profile-avatar {
+    width: 120px;
+    height: 120px;
+  }
+  .admin-profile-name {
+    font-size: 28px;
   }
 }

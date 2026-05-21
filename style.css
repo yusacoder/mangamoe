@@ -103,7 +103,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 20px;
-  display: flex;
+display: grid;
+grid-template-columns: 1fr auto 1fr;
   align-items: center;
   justify-content: space-between;
 }
@@ -125,6 +126,25 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   flex: 1;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: flex-start;
+}
+
+.nav-center {
+  display: flex;
+  justify-content: center;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   justify-content: flex-end;
 }
 
@@ -184,8 +204,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 .nav-search {
   position: relative;
-  width: 100%;
-  max-width: 240px;
+width: 100%;
+max-width: 240px;
 }
 .nav-search input {
   width: 100%;
@@ -1242,27 +1262,53 @@ footer {
 }
 
 @media (max-width: 768px) {
-  .nav-inner {
-    grid-template-columns: 1fr auto 1fr;
-    padding: 0 12px;
-    gap: 8px;
-  }
-  .nav-left { gap: 8px; }
-  .nav-search { max-width: 130px; }
-  .nav-search input { height: 32px; font-size: 12px; padding: 0 8px 0 28px; }
-  .nav-search svg { left: 8px; width: 10px; height: 10px; }
+.nav-inner {
+  grid-template-columns: 1fr auto 1fr;
+  padding: 0 12px;
+  gap: 8px;
+}
 
-  /* Hide search dropdown on very small screens if it overlaps,
-     but user wants it en sagda. Let's make it fit. */
+.nav-left {
+  gap: 8px;
+}
 
-  .nav-actions { display: none; }
-  .nav-link { display: none; }
-  .btn-ghost, .btn-primary {
-    display: none;
-  }
-  .nav-search-toggle { display: none; }
-  .mobile-search-bar { display: none; }
+.nav-search {
+  max-width: 140px;
+}
 
+.nav-search input {
+  height: 33px;
+  font-size: 12px;
+  padding: 0 10px 0 30px;
+}
+
+.nav-search svg {
+  left: 9px;
+  width: 11px;
+  height: 11px;
+}
+
+/* Hide right-side actions on small screens */
+.nav-actions {
+  display: none;
+}
+
+.nav-link {
+  display: none;
+}
+
+.btn-ghost,
+.btn-primary {
+  display: none;
+}
+
+.nav-search-toggle {
+  display: none;
+}
+
+.mobile-search-bar {
+  display: none;
+}
   .drawer-footer { display: flex; }
 
   .news-grid { grid-template-columns: 1fr; gap: 16px; }
@@ -1567,7 +1613,6 @@ footer {
     font-size: 28px;
   }
 }
-
 /* ── SEARCH DROPDOWN ── */
 .search-dropdown {
   position: absolute;
@@ -1588,11 +1633,20 @@ footer {
   display: none;
   animation: dropdownIn 0.3s ease-out;
 }
-.search-dropdown.active { display: block; }
+
+.search-dropdown.active {
+  display: block;
+}
 
 @keyframes dropdownIn {
-  from { opacity: 0; transform: translate(-50%, -10px); }
-  to { opacity: 1; transform: translate(-50%, 0); }
+  from {
+    opacity: 0;
+    transform: translate(-50%, -10px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
 }
 
 .search-results-list {
@@ -1608,8 +1662,14 @@ footer {
   border-bottom: 1px solid var(--white-ghost);
   transition: var(--transition);
 }
-.search-result-item:last-child { border-bottom: none; }
-.search-result-item:hover { background: var(--white-ghost); }
+
+.search-result-item:last-child {
+  border-bottom: none;
+}
+
+.search-result-item:hover {
+  background: var(--white-ghost);
+}
 
 .search-result-img {
   width: 50px;
@@ -1644,39 +1704,4 @@ footer {
   text-align: center;
   color: var(--white-muted);
   font-size: 14px;
-}
-
-/* Final Responsive Tweaks */
-@media (max-width: 480px) {
-  .nav-inner {
-    padding: 0 10px;
-  }
-  .nav-search {
-    max-width: 90px;
-  }
-  .nav-search input {
-    height: 32px;
-    font-size: 10px;
-    padding: 0 5px 0 24px;
-  }
-  .logo-text {
-    font-size: 11px;
-  }
-  .search-dropdown {
-    width: 95vw;
-  }
-}
-  .nav-center {
-    justify-content: center;
-  }
-  .nav-search {
-    max-width: 100px;
-  }
-  .nav-search input {
-    padding: 0 5px 0 24px;
-    font-size: 11px;
-  }
-  .nav-search svg {
-    left: 6px;
-  }
 }

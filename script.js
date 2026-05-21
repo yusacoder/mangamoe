@@ -14,8 +14,7 @@ const STATE = {
 // ── FETCH JSON ──
 async function fetchNews() {
   try {
-    const prefix = window.location.pathname.includes('/admin/') ? '../' : '';
-    const res = await fetch(prefix + 'data.json');
+    const res = await fetch('data.json');
     if (!res.ok) throw new Error('Fetch failed');
     const data = await res.json();
     // En yüksek ID en üste gelecek şekilde sırala
@@ -463,82 +462,25 @@ function initDrawer() {
   });
 }
 
-// ── GLOBAL SEARCH (All Pages) ──
-function initGlobalSearch() {
-  const searchInput = document.getElementById('global-search-input');
-  const dropdown = document.getElementById('search-dropdown');
-  const resultsList = document.getElementById('search-results-list');
-
-  if (!searchInput || !dropdown || !resultsList) return;
-
-  function showDropdown() {
-    dropdown.classList.add('active');
-  }
-
-  function hideDropdown() {
-    dropdown.classList.remove('active');
-  }
-
-  function performSearch(query, isEnter = false) {
-    const q = query.toLowerCase().trim();
-    const isMainPage = window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/') || window.location.pathname === '' || window.location.pathname.includes('index.html');
-
-    if (isEnter && isMainPage) {
-      resultsList.innerHTML = '<div class="search-no-results">Henüz manga eklenmedi.</div>';
-      showDropdown();
-      return;
-    }
-
-    if (!q) {
-      resultsList.innerHTML = '<div class="search-no-results">Aramaya başlayın...</div>';
-      showDropdown();
-      return;
-    }
-
-    const filtered = STATE.news.filter(n =>
-      n.title.toLowerCase().includes(q) ||
-      n.desc.toLowerCase().includes(q) ||
-      (n.content && n.content.toLowerCase().includes(q))
-    ).slice(0, 6);
-
-    if (filtered.length > 0) {
-      resultsList.innerHTML = filtered.map(item => {
-        const prefix = window.location.pathname.includes('/admin/') ? '../' : '';
-        return `
-          <a href="${prefix}haber-detay.html?id=${item.id}" class="search-result-item">
-            <img src="${prefix}${item.image}" class="search-result-img" alt="${item.title}">
-            <div class="search-result-info">
-              <div class="search-result-title">${item.title}</div>
-              <div class="search-result-date">${formatDate(item.date)}</div>
-            </div>
-          </a>
-        `;
-      }).join('');
-    } else {
-      resultsList.innerHTML = '<div class="search-no-results">Sonuç bulunamadı.</div>';
-    }
-    showDropdown();
-  }
-
-  searchInput.addEventListener('focus', (e) => {
-    performSearch(e.target.value);
-  });
+// ── SEARCH (haberler.html) ──
+function initSearch() {
+  const searchInput = document.querySelector('.nav-search input, .page-search input');
+  if (!searchInput) return;
 
   searchInput.addEventListener('input', (e) => {
-    performSearch(e.target.value);
-  });
+    const q = e.target.value.toLowerCase().trim();
+    if (!STATE.news.length) return;
 
-  searchInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-      performSearch(searchInput.value, true);
-    }
-  });
+    const filtered = q
+      ? STATE.news.filter(n =>
+          n.title.toLowerCase().includes(q) ||
+          n.desc.toLowerCase().includes(q) ||
+          n.content.toLowerCase().includes(q)
+        )
+      : STATE.news;
 
-  // Click outside to close
-  document.addEventListener('click', (e) => {
-    if (!searchInput.contains(e.target) && !dropdown.contains(e.target)) {
-      hideDropdown();
-    }
+    STATE.currentPage = 1;
+    renderNews(filtered, 1);
   });
 }
 
@@ -547,7 +489,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   initModal();
   initDrawer();
   initSliderButtons();
-  initGlobalSearch();
 
   const isNewsPage = !!document.getElementById('news-grid');
   const isHomePage = !!document.getElementById('hero-slider');
@@ -565,5 +506,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (isHomePage) initSlider(news);
   if (isNewsPage) {
     renderNews(news, 1);
+    initSearch();
   }
 });

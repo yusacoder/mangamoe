@@ -57,47 +57,61 @@
       </ul>
     </div>
     <div class="drawer-footer">
-      <button class="btn-ghost modal-trigger" style="font-family:var(--font-body);cursor:pointer;">Giriş Yap</button>
-      <button class="btn-primary modal-trigger" style="font-family:var(--font-body);cursor:pointer;">Kayıt Ol</button>
+      <button class="btn-ghost modal-trigger" style="font-family:var(--font-body);cursor:pointer;">Oturum Aç</button>
+      <button class="btn-primary modal-trigger" style="font-family:var(--font-body);cursor:pointer;">Kaydol</button>
     </div>
   </aside>
 
   <!-- ── NAVBAR ── -->
-  <nav class="navbar">
-    <div class="nav-inner">
-      <div class="nav-left">
-        <button class="hamburger" id="hamburger" aria-label="Menü">
-          <span></span><span></span><span></span>
+<nav class="navbar">
+  <div class="nav-inner">
+
+    <div class="nav-left">
+      <button class="hamburger" id="hamburger" aria-label="Menü">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="nav-search">
+        <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
+
+        <input type="text"
+          placeholder="Haber, manga, anime ara..."
+          id="global-search-input">
+      </div>
+    </div>
+
+    <div class="nav-center">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-text">Manga <span>Moe</span></span>
+      </a>
+    </div>
+
+    <div class="nav-right">
+      <div class="nav-actions">
+        <a href="haberler.html" class="nav-link">Haberler</a>
+
+        <button class="btn-ghost modal-trigger">
+          Giriş Yap
         </button>
-        <div class="nav-search">
-          <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-          </svg>
-          <input type="text" placeholder="Haber, manga, anime ara..." id="global-search-input">
-        </div>
-      </div>
 
-      <div class="nav-center">
-        <a href="index.html" class="nav-logo">
-          <span class="logo-text">Manga <span>Moe</span></span>
-        </a>
-      </div>
-
-      <div class="nav-right">
-        <div class="nav-actions">
-          <a href="haberler.html" class="nav-link">Haberler</a>
-          <button class="btn-ghost modal-trigger">Giriş Yap</button>
-          <button class="btn-primary modal-trigger">Kayıt Ol</button>
-        </div>
+        <button class="btn-primary modal-trigger">
+          Kayıt Ol
+        </button>
       </div>
     </div>
-    <!-- SEARCH DROPDOWN -->
-    <div class="search-dropdown" id="search-dropdown">
-      <div class="search-results-list" id="search-results-list">
-        <!-- JS ile dolacak -->
-      </div>
+
+  </div>
+
+  <!-- SEARCH DROPDOWN -->
+  <div class="search-dropdown" id="search-dropdown">
+    <div class="search-results-list" id="search-results-list">
+      <!-- JS ile dolacak -->
     </div>
-  </nav>
+  </div>
+</nav>
 
   <!-- ── DETAIL SECTION (JS ile doldurulur) ── -->
   <div id="detail-section" style="padding-top: 64px; min-height: 80vh;">

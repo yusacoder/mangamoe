@@ -1249,10 +1249,6 @@ footer {
   .nav-actions .btn-ghost, .nav-actions .btn-primary {
     display: none;
   }
-  .nav-search-btn {
-    margin-left: auto;
-  }
-  }
   .nav-search-toggle, .nav-search-btn { display: flex; }
   .mobile-search-bar { display: block; }
   .drawer-footer { display: flex; }

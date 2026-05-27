@@ -19,6 +19,7 @@
   --white-dim: rgba(255,255,255,0.85);
   --white-muted: rgba(255,255,255,0.5);
   --white-ghost: rgba(255,255,255,0.08);
+  --text-muted: rgba(255,255,255,0.5);
   --border: rgba(168,85,247,0.2);
   --border-bright: rgba(168,85,247,0.5);
   --font-display: 'Orbitron', sans-serif;
@@ -894,9 +895,29 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 /* ── FOOTER ── */
 footer {
   border-top: 1px solid var(--border);
-  padding: 20px 0;
+  padding: 32px 0;
   margin-top: 16px;
   text-align: center;
+}
+
+.footer-links {
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.footer-link {
+  color: var(--white-muted);
+  text-decoration: none;
+  font-size: 14px;
+  transition: var(--transition);
+  font-weight: 500;
+}
+
+.footer-link:hover {
+  color: var(--purple-light);
 }
 
 .footer-logo {

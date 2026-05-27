@@ -504,9 +504,11 @@ function initGlobalSearch() {
     if (filtered.length > 0) {
       resultsList.innerHTML = filtered.map(item => {
         const prefix = window.location.pathname.includes('/admin/') ? '../' : '';
+        // If image is a full URL, don't prefix it
+        const imgSrc = item.image.startsWith('http') ? item.image : prefix + item.image;
         return `
           <a href="${prefix}haber-detay.html?id=${item.id}" class="search-result-item">
-            <img src="${prefix}${item.image}" class="search-result-img" alt="${item.title}">
+            <img src="${imgSrc}" class="search-result-img" alt="${item.title}">
             <div class="search-result-info">
               <div class="search-result-title">${item.title}</div>
               <div class="search-result-date">${formatDate(item.date)}</div>

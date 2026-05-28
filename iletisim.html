@@ -221,10 +221,11 @@
         <!-- İletişim Nedeni -->
         <div>
           <label class="form-label">İletişim Nedeni</label>
-          <select name="neden" class="form-input" required>
+          <select name="neden" id="neden-select" class="form-input" required>
             <option value="" disabled selected>Seçiniz...</option>
             <option value="Reklam">Reklam</option>
             <option value="Şikayet">Şikayet</option>
+            <option value="Admin Başvurusu">Admin Başvurusu</option>
             <option value="Başka bir şey">Başka bir şey</option>
           </select>
         </div>
@@ -241,16 +242,44 @@
           <input type="text" name="iletisim" class="form-input" placeholder="Size ulaşabileceğimiz bir adres" required>
         </div>
 
-        <!-- Konu -->
-        <div>
+        <!-- Konu (admin başvurusunda gizli) -->
+        <div id="konu-group">
           <label class="form-label">Konu</label>
-          <textarea name="konu" id="subject-textarea" class="form-input auto-grow" placeholder="Mesajınızın konusu nedir?" required></textarea>
+          <textarea name="konu" id="subject-textarea" class="form-input auto-grow" placeholder="Mesajınızın konusu nedir?"></textarea>
         </div>
 
         <!-- Mesaj -->
         <div>
-          <label class="form-label">Mesajınız</label>
+          <label class="form-label" id="mesaj-label">Mesajınız</label>
           <textarea name="mesaj" id="message-textarea" class="form-input auto-grow" placeholder="Detaylı mesajınızı buraya yazın..." required></textarea>
+        </div>
+
+        <!-- ADMIN BAŞVURUSU ALANLARI -->
+        <div id="admin-fields" class="hidden space-y-6">
+          <!-- Ayırıcı -->
+          <div class="flex items-center gap-3 py-1">
+            <div class="flex-1 h-px bg-purple/20"></div>
+            <span class="text-[11px] font-bold tracking-[2px] uppercase text-purple/60">Admin Başvurusu</span>
+            <div class="flex-1 h-px bg-purple/20"></div>
+          </div>
+
+          <!-- Yaş -->
+          <div>
+            <label class="form-label">Yaşınız</label>
+            <input type="number" name="yas" id="admin-yas" class="form-input" placeholder="Kaç yaşındasınız?" min="13" max="99">
+          </div>
+
+          <!-- Deneyim -->
+          <div>
+            <label class="form-label">Deneyim / Neden Admin Olmak İstiyorsunuz?</label>
+            <textarea name="deneyim" id="admin-deneyim" class="form-input auto-grow" placeholder="Kendinizden ve neden admin olmak istediğinizden bahsedin..."></textarea>
+          </div>
+
+          <!-- Referans -->
+          <div>
+            <label class="form-label">Referans <span class="text-white/30 normal-case tracking-normal font-normal">(opsiyonel)</span></label>
+            <input type="text" name="referans" id="admin-referans" class="form-input" placeholder="Sizi tanıyan bir admin veya kullanıcı var mı?">
+          </div>
         </div>
 
         <!-- Honeypot -->
@@ -309,11 +338,48 @@
       });
     });
 
+    // Admin başvurusu toggle
+    const nedenSelect = document.getElementById('neden-select');
+    const adminFields = document.getElementById('admin-fields');
+    const konuGroup = document.getElementById('konu-group');
+    const mesajLabel = document.getElementById('mesaj-label');
+    const adminYas = document.getElementById('admin-yas');
+    const adminDeneyim = document.getElementById('admin-deneyim');
+    const subjectTextarea = document.getElementById('subject-textarea');
+    const messageTextarea = document.getElementById('message-textarea');
+
+    nedenSelect.addEventListener('change', function() {
+      const isAdmin = this.value === 'Admin Başvurusu';
+
+      if (isAdmin) {
+        adminFields.classList.remove('hidden');
+        adminYas.required = true;
+        adminDeneyim.required = true;
+        konuGroup.style.display = 'none';
+        subjectTextarea.required = false;
+        mesajLabel.textContent = 'Eklemek İstediğiniz Bir Şey Var Mı?';
+        messageTextarea.placeholder = 'Eklemek istediğiniz bir şey varsa buraya yazabilirsiniz...';
+        messageTextarea.required = false;
+      } else {
+        adminFields.classList.add('hidden');
+        adminYas.required = false;
+        adminDeneyim.required = false;
+        konuGroup.style.display = '';
+        subjectTextarea.required = true;
+        mesajLabel.textContent = 'Mesajınız';
+        messageTextarea.placeholder = 'Detaylı mesajınızı buraya yazın...';
+        messageTextarea.required = true;
+      }
+    });
+
     // Form submission alert
     const form = document.getElementById('contact-form');
     form.addEventListener('submit', function(e) {
       e.preventDefault();
-      const confirmMsg = "Gerçek olmayan bir isim dışında isim yazan kişilerin mailine bakılmaz ve sadece ciddi konular için geri dönüş yapılır.";
+      const isAdmin = nedenSelect.value === 'Admin Başvurusu';
+      const confirmMsg = isAdmin
+        ? "Admin başvurunuzu göndermek istediğinizden emin misiniz? Ekip inceleyip size geri dönecektir."
+        : "Gerçek olmayan bir isim dışında isim yazan kişilerin mailine bakılmaz ve sadece ciddi konular için geri dönüş yapılır.";
       if (confirm(confirmMsg)) {
         this.submit();
       }

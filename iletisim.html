@@ -7,11 +7,9 @@
   <meta name="description" content="Manga Moe ile iletişime geçin. Reklam, şikayet ve diğer konular için bize yazın.">
   <link rel="icon" href="logo1-removebg-preview.png" type="image/png">
 
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 
-  <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -52,13 +50,11 @@
   </script>
 
   <style>
-    /* Scrollbar */
     html { scrollbar-width: thin; scrollbar-color: #7c3aed #0a0a0f; scroll-behavior: smooth; }
     ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-track { background: #0a0a0f; }
     ::-webkit-scrollbar-thumb { background: #7c3aed; border-radius: 10px; }
 
-    /* Noise overlay */
     body::before {
       content: '';
       position: fixed; inset: 0;
@@ -69,24 +65,20 @@
     body { font-family: 'Rajdhani', sans-serif; background: #000; color: #fff; }
     .font-display { font-family: 'Orbitron', sans-serif; }
 
-    /* Hamburger active */
     .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
     .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-    /* Drawer */
     .drawer { transform: translateX(-100%); transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94); }
     .drawer.open { transform: translateX(0); }
     .drawer-overlay { opacity: 0; pointer-events: none; transition: opacity 0.3s; }
     .drawer-overlay.open { opacity: 1; pointer-events: all; }
 
-    /* Modal */
     .modal-overlay { opacity: 0; pointer-events: none; transition: opacity 0.3s; }
     .modal-overlay.open { opacity: 1; pointer-events: all; }
     .modal-overlay .modal-box { transform: scale(0.9) translateY(20px); transition: transform 0.3s cubic-bezier(0.25,0.46,0.45,0.94); }
     .modal-overlay.open .modal-box { transform: scale(1) translateY(0); }
 
-    /* Mobile search bar */
     .mobile-search-bar { transform: translateY(-100%); opacity: 0; transition: transform 0.3s ease, opacity 0.3s ease; display: none; }
     .mobile-search-bar.open { transform: translateY(0); opacity: 1; }
 
@@ -96,7 +88,6 @@
       .show-mobile-flex { display: flex !important; }
     }
 
-    /* Form Styles */
     .form-input {
       width: 100%;
       background: rgba(255,255,255,0.05);
@@ -123,18 +114,10 @@
       margin-bottom: 8px;
     }
 
-    textarea.auto-grow {
-      resize: none;
-      overflow: hidden;
-      min-height: 100px;
-    }
+    textarea.auto-grow { resize: none; overflow: hidden; min-height: 100px; }
 
     #search-dropdown.active { display: block; }
-
-    .search-result-item {
-      display: flex; align-items: center; gap: 12px;
-      padding: 12px; border-bottom: 1px solid rgba(168,85,247,0.1); transition: all 0.3s;
-    }
+    .search-result-item { display: flex; align-items: center; gap: 12px; padding: 12px; border-bottom: 1px solid rgba(168,85,247,0.1); transition: all 0.3s; }
     .search-result-item:hover { background: rgba(168,85,247,0.1); }
     .search-result-img { width: 40px; height: 40px; border-radius: 4px; object-fit: cover; }
     .search-result-title { font-size: 14px; font-weight: 600; color: #fff; }
@@ -184,11 +167,9 @@
       <a href="index.html" class="flex items-center gap-2 flex-shrink-0">
         <span class="logo-text font-display text-[15px] font-bold tracking-[2px] uppercase text-white max-[480px]:flex sm:flex">Manga <span class="text-purple ml-1">Moe</span></span>
       </a>
-      <!-- Desktop search -->
       <div class="nav-search hide-mobile flex-1 max-w-[420px] mx-auto relative">
         <svg width="15" height="15" fill="none" stroke="currentColor" class="absolute left-3 top-1/2 -translate-y-1/2 text-white/50 pointer-events-none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
         <input type="text" id="global-search-input" placeholder="Manga ara..." class="w-full h-[38px] bg-white/5 border border-purple/20 rounded-pill pl-10 pr-4 text-white font-body text-sm outline-none focus:border-purple focus:bg-purple/5 focus:ring-2 focus:ring-purple/15 placeholder:text-white/50 transition-all">
-        <!-- Search Dropdown -->
         <div id="search-dropdown" class="absolute top-full left-0 right-0 mt-2 bg-black-card border border-purple/20 rounded-lg shadow-purple-glow overflow-hidden hidden">
           <div id="search-results-list" class="max-h-[300px] overflow-y-auto"></div>
         </div>
@@ -242,7 +223,7 @@
           <input type="text" name="iletisim" class="form-input" placeholder="Size ulaşabileceğimiz bir adres" required>
         </div>
 
-        <!-- Konu (admin başvurusunda gizli) -->
+        <!-- Konu -->
         <div id="konu-group">
           <label class="form-label">Konu</label>
           <textarea name="konu" id="subject-textarea" class="form-input auto-grow" placeholder="Mesajınızın konusu nedir?"></textarea>
@@ -256,34 +237,27 @@
 
         <!-- ADMIN BAŞVURUSU ALANLARI -->
         <div id="admin-fields" class="hidden space-y-6">
-          <!-- Ayırıcı -->
           <div class="flex items-center gap-3 py-1">
             <div class="flex-1 h-px bg-purple/20"></div>
             <span class="text-[11px] font-bold tracking-[2px] uppercase text-purple/60">Admin Başvurusu</span>
             <div class="flex-1 h-px bg-purple/20"></div>
           </div>
-
-          <!-- Yaş -->
           <div>
             <label class="form-label">Yaşınız</label>
             <input type="number" name="yas" id="admin-yas" class="form-input" placeholder="Kaç yaşındasınız?" min="13" max="99">
           </div>
-
-          <!-- Deneyim -->
           <div>
             <label class="form-label">Deneyim / Neden Admin Olmak İstiyorsunuz?</label>
             <textarea name="deneyim" id="admin-deneyim" class="form-input auto-grow" placeholder="Kendinizden ve neden admin olmak istediğinizden bahsedin..."></textarea>
           </div>
-
-          <!-- Referans -->
           <div>
             <label class="form-label">Referans <span class="text-white/30 normal-case tracking-normal font-normal">(opsiyonel)</span></label>
             <input type="text" name="referans" id="admin-referans" class="form-input" placeholder="Sizi tanıyan bir admin veya kullanıcı var mı?">
           </div>
         </div>
 
-        <!-- Honeypot -->
-        <input type="text" name="_honey" style="display:none">
+        <!-- Honeypot (DÜZELTİLDİ: _honey → _honeypot) -->
+        <input type="text" name="_honeypot" style="display:none">
         <input type="hidden" name="_subject" value="Manga Moe - Yeni İletişim Formu Mesajı">
         <input type="hidden" name="_captcha" value="false">
 
@@ -330,8 +304,7 @@
   <script src="script.js"></script>
   <script>
     // Auto-grow textareas
-    const textareas = document.querySelectorAll('.auto-grow');
-    textareas.forEach(textarea => {
+    document.querySelectorAll('.auto-grow').forEach(function(textarea) {
       textarea.addEventListener('input', function() {
         this.style.height = 'auto';
         this.style.height = (this.scrollHeight) + 'px';
@@ -350,7 +323,6 @@
 
     nedenSelect.addEventListener('change', function() {
       const isAdmin = this.value === 'Admin Başvurusu';
-
       if (isAdmin) {
         adminFields.classList.remove('hidden');
         adminYas.required = true;
@@ -372,16 +344,22 @@
       }
     });
 
-    // Form submission alert
-    const form = document.getElementById('contact-form');
+    // DÜZELTİLMİŞ form gönderimi
+    var formConfirmed = false;
+    var form = document.getElementById('contact-form');
+
     form.addEventListener('submit', function(e) {
+      if (formConfirmed) return;
       e.preventDefault();
-      const isAdmin = nedenSelect.value === 'Admin Başvurusu';
-      const confirmMsg = isAdmin
-        ? "Admin başvurunuzu göndermek istediğinizden emin misiniz? Ekip inceleyip size geri dönecektir."
-        : "Gerçek olmayan bir isim dışında isim yazan kişilerin mailine bakılmaz ve sadece ciddi konular için geri dönüş yapılır.";
+
+      var isAdmin = nedenSelect.value === 'Admin Başvurusu';
+      var confirmMsg = isAdmin
+        ? 'Admin başvurunuzu göndermek istediğinizden emin misiniz? Ekip inceleyip size geri dönecektir.'
+        : 'Gerçek olmayan bir isim dışında isim yazan kişilerin mailine bakılmaz ve sadece ciddi konular için geri dönüş yapılır.';
+
       if (confirm(confirmMsg)) {
-        this.submit();
+        formConfirmed = true;
+        form.submit();
       }
     });
   </script>

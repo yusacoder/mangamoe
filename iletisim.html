@@ -198,74 +198,76 @@
         <p class="text-white/50 text-sm">Bizimle iletişime geçmek için aşağıdaki formu doldurun.</p>
       </div>
 
-      <form id="contact-form" action="https://formsubmit.co/destek@mangamoe.net" method="POST" class="space-y-6">
-        <!-- İletişim Nedeni -->
-        <div>
-          <label class="form-label">İletişim Nedeni</label>
-          <select name="neden" id="neden-select" class="form-input" required>
-            <option value="" disabled selected>Seçiniz...</option>
-            <option value="Reklam">Reklam</option>
-            <option value="Şikayet">Şikayet</option>
-            <option value="Admin Başvurusu">Admin Başvurusu</option>
-            <option value="Başka bir şey">Başka bir şey</option>
-          </select>
-        </div>
+     <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="space-y-6">
 
-        <!-- İsim Soyisim -->
-        <div>
-          <label class="form-label">İsim Soyisim</label>
-          <input type="text" name="isim" class="form-input" placeholder="Adınız ve Soyadınız" required>
-        </div>
+  <!-- Web3Forms Key -->
+  <input type="hidden" name="access_key" value="cc0a83e3-6379-46fc-98b6-163adb4c7483">
 
-        <!-- Mail veya Telefon -->
-        <div>
-          <label class="form-label">E-posta veya Cep Telefonu</label>
-          <input type="text" name="iletisim" class="form-input" placeholder="Size ulaşabileceğimiz bir adres" required>
-        </div>
+  <!-- Redirect -->
+  <input type="hidden" name="redirect" value="https://mangamoe.net/iletisim?success=true">
 
-        <!-- Konu -->
-        <div id="konu-group">
-          <label class="form-label">Konu</label>
-          <textarea name="konu" id="subject-textarea" class="form-input auto-grow" placeholder="Mesajınızın konusu nedir?"></textarea>
-        </div>
+  <!-- Honeypot -->
+  <input type="checkbox" name="botcheck" class="hidden" style="display:none;">
 
-        <!-- Mesaj -->
-        <div>
-          <label class="form-label" id="mesaj-label">Mesajınız</label>
-          <textarea name="mesaj" id="message-textarea" class="form-input auto-grow" placeholder="Detaylı mesajınızı buraya yazın..." required></textarea>
-        </div>
+  <!-- İletişim Nedeni -->
+  <div>
+    <label class="form-label">İletişim Nedeni</label>
+    <select name="neden" id="neden-select" class="form-input" required>
+      <option value="" disabled selected>Seçiniz...</option>
+      <option value="Reklam">Reklam</option>
+      <option value="Şikayet">Şikayet</option>
+      <option value="Admin Başvurusu">Admin Başvurusu</option>
+      <option value="Başka bir şey">Başka bir şey</option>
+    </select>
+  </div>
 
-        <!-- ADMIN BAŞVURUSU ALANLARI -->
-        <div id="admin-fields" class="hidden space-y-6">
-          <div class="flex items-center gap-3 py-1">
-            <div class="flex-1 h-px bg-purple/20"></div>
-            <span class="text-[11px] font-bold tracking-[2px] uppercase text-purple/60">Admin Başvurusu</span>
-            <div class="flex-1 h-px bg-purple/20"></div>
-          </div>
-          <div>
-            <label class="form-label">Yaşınız</label>
-            <input type="number" name="yas" id="admin-yas" class="form-input" placeholder="Kaç yaşındasınız?" min="13" max="99">
-          </div>
-          <div>
-            <label class="form-label">Deneyim / Neden Admin Olmak İstiyorsunuz?</label>
-            <textarea name="deneyim" id="admin-deneyim" class="form-input auto-grow" placeholder="Kendinizden ve neden admin olmak istediğinizden bahsedin..."></textarea>
-          </div>
-          <div>
-            <label class="form-label">Referans <span class="text-white/30 normal-case tracking-normal font-normal">(opsiyonel)</span></label>
-            <input type="text" name="referans" id="admin-referans" class="form-input" placeholder="Sizi tanıyan bir admin veya kullanıcı var mı?">
-          </div>
-        </div>
+  <!-- İsim -->
+  <div>
+    <label class="form-label">İsim Soyisim</label>
+    <input type="text" name="isim" class="form-input" required>
+  </div>
 
-        <!-- Honeypot (DÜZELTİLDİ: _honey → _honeypot) -->
-        <input type="text" name="_honeypot" style="display:none">
-        <input type="hidden" name="_subject" value="Manga Moe - Yeni İletişim Formu Mesajı">
-        <input type="hidden" name="_captcha" value="false">
+  <!-- İletişim -->
+  <div>
+    <label class="form-label">E-posta veya Cep Telefonu</label>
+    <input type="text" name="iletisim" class="form-input" required>
+  </div>
 
-        <!-- Submit Button -->
-        <button type="submit" class="w-full h-12 bg-purple rounded-pill font-display text-sm font-bold tracking-[2px] uppercase text-white shadow-purple-glow hover:bg-purple-light hover:shadow-purple-glow-lg transition-all">
-          Gönder
-        </button>
-      </form>
+  <!-- Konu -->
+  <div id="konu-group">
+    <label class="form-label">Konu</label>
+    <textarea name="konu" id="subject-textarea" class="form-input auto-grow"></textarea>
+  </div>
+
+  <!-- Mesaj -->
+  <div>
+    <label class="form-label" id="mesaj-label">Mesajınız</label>
+    <textarea name="mesaj" id="message-textarea" class="form-input auto-grow"></textarea>
+  </div>
+
+  <!-- Admin Alanları -->
+  <div id="admin-fields" class="hidden space-y-6">
+    <div>
+      <label class="form-label">Yaşınız</label>
+      <input type="number" name="yas" id="admin-yas" class="form-input">
+    </div>
+
+    <div>
+      <label class="form-label">Deneyim</label>
+      <textarea name="deneyim" id="admin-deneyim" class="form-input auto-grow"></textarea>
+    </div>
+
+    <div>
+      <label class="form-label">Referans</label>
+      <input type="text" name="referans" id="admin-referans" class="form-input">
+    </div>
+  </div>
+
+  <button type="submit" class="w-full h-12 bg-purple rounded-pill font-display text-sm font-bold tracking-[2px] uppercase text-white">
+    Gönder
+  </button>
+
+</form>
     </div>
   </main>
 

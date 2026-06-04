@@ -35,158 +35,101 @@ function formatDate(dateStr) {
 
 // ── HERO SLIDER ──
 function initSlider(news) {
-  const slider = document.getElementById('heroSlider');
-  if (!slider) return;
+  const sliderEl = document.getElementById('hero-slider');
+  if (!sliderEl) return;
 
-  const slidesData = news.slice(0, 5);
-  const slidesWrapper = document.getElementById('slidesWrapper');
-  const dotsWrap = document.getElementById('sliderDots');
-  const btnPrev  = document.getElementById('btnPrev');
-  const btnNext  = document.getElementById('btnNext');
-  const bar      = document.getElementById('progressBar');
-  const cCurrent = document.getElementById('countCurrent');
-  const cTotal   = document.getElementById('countTotal');
+  // En yüksek 3 ID'yi al (zaten sıralı geldi)
+  const slides = news.slice(0, 3);
+  const slidesWrapper = document.getElementById('slides-wrapper');
+  const dotsWrapper = document.getElementById('slider-dots');
 
-  if (!slidesWrapper || !dotsWrap) return;
-
-  const INTERVAL = 5500; // ms per slide
-  let current = 0;
-  let timer = null;
-  let paused = false;
-  let startTime, elapsed = 0;
-
-  cTotal.textContent = slidesData.length;
+  if (!slidesWrapper) return;
 
   // Render slides
-  slidesWrapper.innerHTML = slidesData.map((item, i) => {
-    let titleHtml = item.title;
-    if (item.title.includes(':')) {
-      const parts = item.title.split(':');
-      titleHtml = `${parts[0]}:<br><span>${parts.slice(1).join(':')}</span>`;
-    }
-
-    return `
-      <div class="slide ${i === 0 ? 'active' : ''}" data-index="${i}">
-        <div class="slide-bg" style="background-image: url('${item.image}')"></div>
-        <div class="slide-overlay"></div>
-        <div class="ep-badge">✦ Haber</div>
-        <div class="slide-content">
-          <div class="slide-tag"><span class="dot"></span>Öne Çıkan</div>
-          <h2 class="slide-title">${titleHtml}</h2>
-          <p class="slide-desc">${item.desc}</p>
-          <div class="slide-actions">
-            <a href="haber-detay.html?id=${item.id}" class="btn-slide-primary">▶ Haberi Oku</a>
-            <a href="haberler.html" class="btn-slide-ghost">Tümü</a>
-          </div>
+  slidesWrapper.innerHTML = slides.map((item, i) => `
+    <div class="slide ${i === 0 ? 'active' : ''}" data-index="${i}">
+      <div class="slide-bg" style="background-image: url('${item.image}')"></div>
+      <div class="slide-overlay"></div>
+      <div class="slide-content">
+        <div class="slide-badge">Öne Çıkan Haber</div>
+        <h2 class="slide-title">${item.title}</h2>
+        <p class="slide-desc">${item.desc}</p>
+        <div class="slide-actions">
+          <a href="haber-detay.html?id=${item.id}" class="btn-slide-primary">
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+            Haberi Oku
+          </a>
         </div>
       </div>
-    `;
-  }).join('');
+    </div>
+  `).join('');
 
-  // Build dots
-  dotsWrap.innerHTML = '';
-  slidesData.forEach((_, i) => {
-    const d = document.createElement('button');
-    d.className = 'dot-btn' + (i === 0 ? ' active' : '');
-    d.setAttribute('aria-label', `Slide ${i + 1}`);
-    d.addEventListener('click', () => goTo(i));
-    dotsWrap.appendChild(d);
-  });
+  // Render dots
+  if (dotsWrapper) {
+    dotsWrapper.innerHTML = slides.map((_, i) => `
+      <div class="dot ${i === 0 ? 'active' : ''}" data-index="${i}"></div>
+    `).join('');
 
-  const slides = Array.from(slider.querySelectorAll('.slide'));
-  function getDots() { return Array.from(dotsWrap.querySelectorAll('.dot-btn')); }
-
-  function goTo(next) {
-    if (next === current || !slides[next]) return;
-    const prev = current;
-
-    slides[prev].classList.remove('active');
-    slides[prev].classList.add('exit');
-    setTimeout(() => slides[prev].classList.remove('exit'), 700);
-
-    slides[next].classList.add('active');
-    current = next;
-
-    getDots().forEach((d, i) => d.classList.toggle('active', i === current));
-    if (cCurrent) cCurrent.textContent = current + 1;
-
-    resetProgress();
-    startProgress();
+    dotsWrapper.querySelectorAll('.dot').forEach(dot => {
+      dot.addEventListener('click', () => {
+        goToSlide(parseInt(dot.dataset.index));
+        resetAutoplay();
+      });
+    });
   }
 
-  function nextSlide() { goTo((current + 1) % slides.length); }
-  function prevSlide() { goTo((current - 1 + slides.length) % slides.length); }
+  updateSliderCounter(0, slides.length);
+  startAutoplay(slides.length);
+}
 
-  // Progress logic
-  function startProgress() {
-    if (!bar) return;
-    startTime = performance.now() - elapsed;
-    bar.style.transition = `width ${(INTERVAL - elapsed) / 1000}s linear`;
-    bar.style.width = '100%';
+function goToSlide(index) {
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('.dot');
+  if (!slides.length) return;
 
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      elapsed = 0;
-      nextSlide();
-    }, INTERVAL - elapsed);
-  }
+  slides[STATE.currentSlide].classList.remove('active');
+  dots[STATE.currentSlide]?.classList.remove('active');
 
-  function pauseProgress() {
-    if (!bar) return;
-    elapsed = performance.now() - startTime;
-    clearTimeout(timer);
-    const pct = Math.min((elapsed / INTERVAL) * 100, 100);
-    bar.style.transition = 'none';
-    bar.style.width = pct + '%';
-  }
+  STATE.currentSlide = (index + slides.length) % slides.length;
 
-  function resetProgress() {
-    if (!bar) return;
-    elapsed = 0;
-    clearTimeout(timer);
-    bar.style.transition = 'none';
-    bar.style.width = '0%';
-  }
+  slides[STATE.currentSlide].classList.add('active');
+  dots[STATE.currentSlide]?.classList.add('active');
+  updateSliderCounter(STATE.currentSlide, slides.length);
+}
 
-  // Controls
-  btnNext?.addEventListener('click', () => { resetProgress(); elapsed = 0; nextSlide(); });
-  btnPrev?.addEventListener('click', () => { resetProgress(); elapsed = 0; prevSlide(); });
+function updateSliderCounter(current, total) {
+  const el = document.getElementById('slide-current');
+  if (el) el.textContent = current + 1;
+}
 
-  // Pause on hover
-  slider.addEventListener('mouseenter', () => {
-    if (!paused) { paused = true; pauseProgress(); slider.classList.add('paused'); }
+function startAutoplay(total) {
+  clearInterval(STATE.sliderInterval);
+  STATE.sliderInterval = setInterval(() => {
+    goToSlide(STATE.currentSlide + 1);
+  }, 4000);
+}
+
+function resetAutoplay() {
+  const slides = document.querySelectorAll('.slide');
+  clearInterval(STATE.sliderInterval);
+  startAutoplay(slides.length);
+}
+
+// Slider buttons
+function initSliderButtons() {
+  const prevBtn = document.getElementById('slider-prev');
+  const nextBtn = document.getElementById('slider-next');
+
+  prevBtn?.addEventListener('click', () => {
+    goToSlide(STATE.currentSlide - 1);
+    resetAutoplay();
   });
-  slider.addEventListener('mouseleave', () => {
-    if (paused) { paused = false; slider.classList.remove('paused'); startProgress(); }
+  nextBtn?.addEventListener('click', () => {
+    goToSlide(STATE.currentSlide + 1);
+    resetAutoplay();
   });
-
-  // Touch swipe
-  let touchStartX = 0;
-  slider.addEventListener('touchstart', e => {
-    touchStartX = e.touches[0].clientX;
-    paused = true; pauseProgress();
-  }, { passive: true });
-  slider.addEventListener('touchend', e => {
-    const dx = e.changedTouches[0].clientX - touchStartX;
-    paused = false;
-    if (Math.abs(dx) > 40) {
-      elapsed = 0;
-      dx < 0 ? nextSlide() : prevSlide();
-    } else {
-      startProgress();
-    }
-    slider.classList.remove('paused');
-  }, { passive: true });
-
-  // Keyboard
-  document.addEventListener('keydown', e => {
-    // Only if slider is in viewport/active page
-    if (!document.getElementById('heroSlider')) return;
-    if (e.key === 'ArrowRight') { elapsed = 0; nextSlide(); }
-    if (e.key === 'ArrowLeft')  { elapsed = 0; prevSlide(); }
-  });
-
-  startProgress();
 }
 
 // ── NEWS RENDER (haberler.html) ──
@@ -603,10 +546,11 @@ function initGlobalSearch() {
 document.addEventListener('DOMContentLoaded', async () => {
   initModal();
   initDrawer();
+  initSliderButtons();
   initGlobalSearch();
 
   const isNewsPage = !!document.getElementById('news-grid');
-  const isHomePage = !!document.getElementById('heroSlider');
+  const isHomePage = !!document.getElementById('hero-slider');
   const isDetailPage = !!document.getElementById('detail-section');
 
   if (isDetailPage) {

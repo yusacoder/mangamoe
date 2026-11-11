@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Manga Moe | Eternal Production</title>
+<title>Manga Moe Kapanmıştır | Eternal Production</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -21,140 +21,111 @@
 
 body {
     min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 25px;
-    overflow-x: hidden;
-    background: #08070d;
+    background: #050505;
+    color: #fff;
     font-family: 'Inter', sans-serif;
-    color: white;
+    overflow-x: hidden;
 }
 
-/* ARKA PLAN */
+/* ANİME ARKA PLAN */
 
-.background-glow {
+.anime-background {
     position: fixed;
     inset: 0;
-    background:
-        radial-gradient(ellipse at 50% 15%, rgba(117,54,180,.25), transparent 55%),
-        radial-gradient(ellipse at 10% 90%, rgba(110,25,90,.13), transparent 45%);
-    pointer-events: none;
-    z-index: 1;
-}
-
-/* ANIME GALERİ KUTUSU */
-
-.anime-gallery {
-    position: fixed;
-    inset: 20px;
-    z-index: 0;
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 22px;
+    padding: 0 20px;
     overflow: hidden;
-    padding: 20px;
-    border: 1px solid rgba(255,255,255,.08);
-    border-radius: 28px;
-    background: rgba(255,255,255,.025);
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
-    opacity: .8;
+    z-index: 0;
 }
 
 .anime-column {
     flex: 1;
-    max-width: 270px;
+    max-width: 350px;
     overflow: hidden;
-    position: relative;
 }
 
 .anime-track {
     display: flex;
     flex-direction: column;
-    gap: 18px;
-    animation: animeScroll 55s linear infinite;
+    gap: 20px;
+    animation: scrollUp 65s linear infinite;
 }
 
 .anime-column:nth-child(2) .anime-track {
     animation-direction: reverse;
-    animation-duration: 65s;
+    animation-duration: 75s;
 }
 
 .anime-column:nth-child(3) .anime-track {
-    animation-duration: 70s;
+    animation-duration: 85s;
 }
 
 .anime-track img {
+    display: block;
     width: 100%;
-    height: 310px;
+    height: 390px;
     object-fit: cover;
-    border-radius: 18px;
-    border: 1px solid rgba(255,255,255,.15);
-    opacity: .65;
-    filter: saturate(.8);
-    box-shadow: 0 15px 40px rgba(0,0,0,.4);
-    transition: .4s;
+    border-radius: 15px;
+    border: 1px solid rgba(255,255,255,.12);
+    opacity: .55;
+    filter: grayscale(10%);
+    transition: opacity .4s;
 }
 
 .anime-track img:hover {
-    opacity: 1;
-    filter: saturate(1.2);
-    transform: scale(1.02);
+    opacity: .9;
 }
 
-@keyframes animeScroll {
+@keyframes scrollUp {
     from {
         transform: translateY(0);
     }
+
     to {
         transform: translateY(-50%);
     }
 }
 
-/* ÜST ALT KARARTMA */
+/* SİYAH GEÇİŞLER */
 
-.anime-gallery::before,
-.anime-gallery::after {
+.anime-background::before,
+.anime-background::after {
     content: "";
     position: absolute;
     left: 0;
-    right: 0;
-    height: 120px;
-    z-index: 3;
+    width: 100%;
+    height: 180px;
+    z-index: 2;
     pointer-events: none;
 }
 
-.anime-gallery::before {
+.anime-background::before {
     top: 0;
-    background: linear-gradient(#08070d, transparent);
+    background: linear-gradient(to bottom, #050505, transparent);
 }
 
-.anime-gallery::after {
+.anime-background::after {
     bottom: 0;
-    background: linear-gradient(transparent, #08070d);
+    background: linear-gradient(to top, #050505, transparent);
 }
 
-/* DUYURU KARTI */
+/* ORTADAKİ İÇERİK */
 
-.announcement {
+.main-content {
     position: relative;
     z-index: 5;
+    min-height: 100vh;
     width: 100%;
-    max-width: 570px;
-    padding: 50px 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 60px 25px;
     text-align: center;
 
-    background: rgba(13,11,21,.78);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-
-    border: 1px solid rgba(255,255,255,.15);
-    border-radius: 26px;
-
-    box-shadow:
-        0 30px 100px rgba(0,0,0,.65),
-        0 0 60px rgba(126,65,190,.08);
+    background: rgba(0,0,0,.12);
 }
 
 /* LOGO */
@@ -163,95 +134,99 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 13px;
-    margin-bottom: 40px;
-    color: white;
+    gap: 16px;
+    margin-bottom: 65px;
     text-decoration: none;
+    color: white;
 }
 
-.brand-symbol {
-    width: 53px;
-    height: 53px;
+.brand-icon {
+    width: 68px;
+    height: 68px;
     display: grid;
     place-items: center;
-    border-radius: 16px;
-    background: linear-gradient(135deg,#a855f7,#6d28d9);
-    box-shadow: 0 8px 30px rgba(147,51,234,.3);
-    font-size: 25px;
+    border-radius: 19px;
+    background: linear-gradient(145deg,#222,#080808);
+    border: 1px solid rgba(255,255,255,.2);
+    font-size: 32px;
 }
 
 .brand-text {
     text-align: left;
-    font-size: 17px;
+    font-size: 23px;
     font-weight: 900;
-    letter-spacing: 1.5px;
+    letter-spacing: 2px;
 }
 
 .brand-text small {
     display: block;
-    margin-top: 5px;
-    color: #b89aff;
-    font-size: 9px;
-    letter-spacing: 3px;
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: #aaa;
+    margin-top: 7px;
 }
 
-/* BİLGİLENDİRME */
+/* DUYURU */
 
 .status {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 9px 16px;
-    margin-bottom: 24px;
+    gap: 9px;
+    padding: 10px 18px;
+    margin-bottom: 30px;
+    border: 1px solid rgba(255,255,255,.3);
     border-radius: 30px;
-    background: rgba(239,68,68,.1);
-    border: 1px solid rgba(239,68,68,.22);
-    color: #ff8585;
-    font-size: 11px;
+    background: rgba(0,0,0,.45);
+    color: #eee;
+    font-size: 12px;
     font-weight: 800;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
 }
 
-/* BAŞLIK */
-
 h1 {
-    font-size: clamp(30px,6vw,43px);
-    line-height: 1.2;
+    font-size: clamp(45px, 7vw, 85px);
+    line-height: 1.12;
+    letter-spacing: -4px;
     font-weight: 900;
-    letter-spacing: -1.5px;
-    margin-bottom: 18px;
+    text-shadow: 0 5px 25px #000;
+    margin-bottom: 28px;
 }
 
 h1 span {
-    color: #b58aff;
+    color: #c7c7c7;
 }
 
 .description {
-    color: #aaa6b5;
-    font-size: 14px;
-    line-height: 1.9;
-    margin-bottom: 32px;
+    font-size: 17px;
+    line-height: 2;
+    color: #eee;
+    text-shadow: 0 3px 12px #000;
+    margin-bottom: 40px;
 }
 
 /* WEB SİTESİ */
 
 .website {
-    width: 100%;
-    min-height: 60px;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
-    padding: 17px;
-    border-radius: 14px;
+    gap: 14px;
 
-    background: linear-gradient(100deg,#7c3aed,#9333ea);
+    min-width: 370px;
+    padding: 22px 35px;
+
+    border-radius: 13px;
+    border: 1px solid rgba(255,255,255,.35);
+
+    background: rgba(10,10,10,.65);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
     color: white;
     text-decoration: none;
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 800;
 
-    box-shadow: 0 10px 35px rgba(124,58,237,.25);
     transition: .3s;
 
     user-select: text;
@@ -259,8 +234,9 @@ h1 span {
 }
 
 .website:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(124,58,237,.4);
+    background: rgba(255,255,255,.15);
+    border-color: white;
+    transform: translateY(-4px);
 }
 
 .website span {
@@ -274,58 +250,44 @@ h1 span {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    margin-top: 25px;
-    padding: 12px 18px;
+    gap: 11px;
 
-    color: #ded1f8;
+    margin-top: 30px;
+    padding: 12px 20px;
+
+    color: white;
     text-decoration: none;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 600;
+
     transition: .3s;
 }
 
 .instagram i {
-    font-size: 21px;
-    background: linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    font-size: 23px;
 }
 
 .instagram:hover {
-    color: white;
-    transform: translateY(-2px);
+    opacity: .7;
+    transform: translateY(-3px);
 }
 
-/* ALT BİLGİ */
+/* FOOTER */
 
 .footer {
-    margin-top: 35px;
-    padding-top: 22px;
-    border-top: 1px solid rgba(255,255,255,.09);
-    color: #777282;
+    margin-top: 65px;
     font-size: 11px;
-    letter-spacing: .5px;
+    letter-spacing: 1px;
+    color: #aaa;
 }
 
 /* MOBİL */
 
-@media(max-width:600px) {
+@media(max-width: 600px) {
 
-    body {
-        padding: 15px;
-    }
-
-    .anime-gallery {
-        inset: 8px;
+    .anime-background {
         gap: 10px;
-        padding: 10px;
-        opacity: .55;
-    }
-
-    .anime-column {
-        min-width: 0;
+        padding: 0 7px;
     }
 
     .anime-column:nth-child(3) {
@@ -333,36 +295,64 @@ h1 span {
     }
 
     .anime-track img {
-        height: 220px;
-        border-radius: 12px;
+        height: 240px;
+        border-radius: 10px;
     }
 
-    .announcement {
-        padding: 38px 23px;
+    .main-content {
+        padding: 35px 18px;
     }
 
     .brand {
-        margin-bottom: 32px;
+        margin-bottom: 45px;
+        gap: 12px;
+    }
+
+    .brand-icon {
+        width: 53px;
+        height: 53px;
+        font-size: 25px;
     }
 
     .brand-text {
+        font-size: 16px;
+    }
+
+    .brand-text small {
+        font-size: 8px;
+    }
+
+    h1 {
+        font-size: 44px;
+        letter-spacing: -2px;
+    }
+
+    .description {
         font-size: 14px;
     }
 
     .website {
+        width: 100%;
+        min-width: 0;
+        max-width: 360px;
+        padding: 19px 12px;
         font-size: 13px;
+    }
+
+    .instagram {
+        font-size: 13px;
+    }
+
+    .footer {
+        margin-top: 45px;
     }
 }
 
-/* ANİMASYONU AZALTMA TERCİHİ */
+/* HAREKET AZALTMA */
 
 @media(prefers-reduced-motion: reduce) {
     .anime-track {
         animation: none;
-    }
-
-    * {
-        transition: none !important;
     }
 }
 </style>
@@ -370,24 +360,22 @@ h1 span {
 
 <body>
 
-<div class="background-glow"></div>
+<!-- ANİME GÖRSELLERİ -->
 
-<!-- ANİME GÖRSEL ALANI -->
-
-<div class="anime-gallery">
+<div class="anime-background">
 
     <div class="anime-column">
         <div class="anime-track">
 
-            <img src="ANIME_GORSEL_LINKI_1" alt="Anime 1">
-            <img src="ANIME_GORSEL_LINKI_2" alt="Anime 2">
-            <img src="ANIME_GORSEL_LINKI_3" alt="Anime 3">
-            <img src="ANIME_GORSEL_LINKI_4" alt="Anime 4">
+            <img src="ANIME_GORSEL_LINKI_1" alt="Anime">
+            <img src="ANIME_GORSEL_LINKI_2" alt="Anime">
+            <img src="ANIME_GORSEL_LINKI_3" alt="Anime">
+            <img src="ANIME_GORSEL_LINKI_4" alt="Anime">
 
-            <img src="ANIME_GORSEL_LINKI_1" alt="Anime 1">
-            <img src="ANIME_GORSEL_LINKI_2" alt="Anime 2">
-            <img src="ANIME_GORSEL_LINKI_3" alt="Anime 3">
-            <img src="ANIME_GORSEL_LINKI_4" alt="Anime 4">
+            <img src="ANIME_GORSEL_LINKI_1" alt="Anime">
+            <img src="ANIME_GORSEL_LINKI_2" alt="Anime">
+            <img src="ANIME_GORSEL_LINKI_3" alt="Anime">
+            <img src="ANIME_GORSEL_LINKI_4" alt="Anime">
 
         </div>
     </div>
@@ -395,15 +383,15 @@ h1 span {
     <div class="anime-column">
         <div class="anime-track">
 
-            <img src="ANIME_GORSEL_LINKI_5" alt="Anime 5">
-            <img src="ANIME_GORSEL_LINKI_6" alt="Anime 6">
-            <img src="ANIME_GORSEL_LINKI_7" alt="Anime 7">
-            <img src="ANIME_GORSEL_LINKI_8" alt="Anime 8">
+            <img src="ANIME_GORSEL_LINKI_5" alt="Anime">
+            <img src="ANIME_GORSEL_LINKI_6" alt="Anime">
+            <img src="ANIME_GORSEL_LINKI_7" alt="Anime">
+            <img src="ANIME_GORSEL_LINKI_8" alt="Anime">
 
-            <img src="ANIME_GORSEL_LINKI_5" alt="Anime 5">
-            <img src="ANIME_GORSEL_LINKI_6" alt="Anime 6">
-            <img src="ANIME_GORSEL_LINKI_7" alt="Anime 7">
-            <img src="ANIME_GORSEL_LINKI_8" alt="Anime 8">
+            <img src="ANIME_GORSEL_LINKI_5" alt="Anime">
+            <img src="ANIME_GORSEL_LINKI_6" alt="Anime">
+            <img src="ANIME_GORSEL_LINKI_7" alt="Anime">
+            <img src="ANIME_GORSEL_LINKI_8" alt="Anime">
 
         </div>
     </div>
@@ -411,29 +399,29 @@ h1 span {
     <div class="anime-column">
         <div class="anime-track">
 
-            <img src="ANIME_GORSEL_LINKI_9" alt="Anime 9">
-            <img src="ANIME_GORSEL_LINKI_10" alt="Anime 10">
-            <img src="ANIME_GORSEL_LINKI_11" alt="Anime 11">
-            <img src="ANIME_GORSEL_LINKI_12" alt="Anime 12">
+            <img src="ANIME_GORSEL_LINKI_9" alt="Anime">
+            <img src="ANIME_GORSEL_LINKI_10" alt="Anime">
+            <img src="ANIME_GORSEL_LINKI_11" alt="Anime">
+            <img src="ANIME_GORSEL_LINKI_12" alt="Anime">
 
-            <img src="ANIME_GORSEL_LINKI_9" alt="Anime 9">
-            <img src="ANIME_GORSEL_LINKI_10" alt="Anime 10">
-            <img src="ANIME_GORSEL_LINKI_11" alt="Anime 11">
-            <img src="ANIME_GORSEL_LINKI_12" alt="Anime 12">
+            <img src="ANIME_GORSEL_LINKI_9" alt="Anime">
+            <img src="ANIME_GORSEL_LINKI_10" alt="Anime">
+            <img src="ANIME_GORSEL_LINKI_11" alt="Anime">
+            <img src="ANIME_GORSEL_LINKI_12" alt="Anime">
 
         </div>
     </div>
 
 </div>
 
-<!-- ANA DUYURU -->
+<!-- DUYURU İÇERİĞİ -->
 
-<main class="announcement">
+<main class="main-content">
 
     <a href="https://www.eternalproduction.net"
        class="brand">
 
-        <span class="brand-symbol">
+        <span class="brand-icon">
             <i class="fa-solid fa-infinity"></i>
         </span>
 
@@ -468,7 +456,6 @@ h1 span {
        rel="noopener noreferrer">
 
         <i class="fa-solid fa-arrow-up-right-from-square"></i>
-
         <span>www.eternalproduction.net</span>
 
     </a>
@@ -484,7 +471,9 @@ h1 span {
     </a>
 
     <div class="footer">
-        © 2026 Eternal Production. Tüm hakları saklıdır.
+        © 2026 ETERNAL PRODUCTION
+        <br><br>
+        TÜM HAKLARI SAKLIDIR.
     </div>
 
 </main>
